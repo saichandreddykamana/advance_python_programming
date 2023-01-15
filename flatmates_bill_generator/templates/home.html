@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block script %}
+<!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Bill Date: 15 Aug 2023',
+                       'width':300,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col-sm-12 flatmate-form">
+                <form id="new_flatmate_form">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Flatmate's name" aria-label="Recipient's username" aria-describedby="button-addon2">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-user"></i> Add </button>
+                    </div>
+                </form>
+                <hr>
+            </div>
+            <div class="col-sm-12 bill-form">
+                <form id="new_bill_form">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">Name</span>
+                      <input type="text" class="form-control" placeholder="Bill Name" aria-label="bill_name" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2">Date</span>
+                      <input type="date" class="form-control" placeholder="Bill Date" aria-label="bill_date" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon3">Due Date</span>
+                      <input type="date" class="form-control" placeholder="Bill Due Date" aria-label="bill_due_date" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label="Bill Type">
+                          <option selected>Bill Type</option>
+                          <option value="groceries">Groceries</option>
+                          <option value="rent">Rent</option>
+                          <option value="electricity">Electricity</option>
+                          <option value="water">Water</option>
+                          <option value="wifi">Wifi</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label="Bill Period">
+                          <option selected>Bill Period</option>
+                          <option value="groceries">Monthly</option>
+                          <option value="rent">Weekly</option>
+                          <option value="electricity">Date</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3" >
+                        <button type="submit" class="btn btn-primary" style="margin:0 auto;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col bills_div">
+            <div class="row">
+                <div class="col-sm-4 content">
+                    <div class="col-sm-12 bill_details">
+                        <span><b>Date: </b> 11 Aug 2023</span>
+                        <span><b>Type: </b> Groceries</span>
+                        <span><b>Due Date: </b> 15 Aug 2023</span>
+                        <span><b>status: </b> Pending</span>
+                        <br>
+                        <button class="btn btn-success btn-sm"> <i class="fa-solid fa-user-check"></i> Resolve Bill</button>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-sm-8 bills_chart">
+                    <!--Div that will hold the pie chart-->
+                    <div id="chart_div"></div>
+                    <div class="col-sm-12 buttons_div">
+                        <button id="view_btn" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i> <span>View Details</span></button>
+                        <button id="download_btn" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-arrow-down"></i> <span>Download PDF</span></button>
+                </div>
+                </div>
+            </div>
+    </div>
+    <div class="col works_div">
+        <div class="calendar">
+            <div class="event">
+                <div class="col-sm-3 date">
+                    <h2>15</h2>
+                    <p><span>Aug</span> <span>2023</span></p>
+                </div>
+                <div class="col-sm-9 event-description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.rro quam vel.</p>
+                    <button class="btn btn-success btn-sm" style="float:right"><i class="fa-solid fa-calendar-check"></i> <span>Mark Complete</span></button>
+                </div>
+            </div>
+            <div class="event">
+                <div class="col-sm-3 date">
+                    <h2>16</h2>
+                    <p><span>Dec</span> <span>2023</span></p>
+                </div>
+                <div class="col-sm-9 event-description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.rro quam vel.</p>
+                    <button class="btn btn-success btn-sm" style="float:right"><i class="fa-solid fa-calendar-check"></i> <span>Mark Complete</span></button>
+                </div>
+            </div>
+            <div class="event">
+                <div class="col-sm-3 date">
+                    <h2>17</h2>
+                    <p><span>Jan</span> <span>2023</span></p>
+                </div>
+                <div class="col-sm-9 event-description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.rro quam vel.</p>
+                    <button class="btn btn-success btn-sm" style="float:right"><i class="fa-solid fa-calendar-check"></i> <span>Mark Complete</span></button>
+                </div>
+            </div>
+<!--            <div class="pagination">-->
+<!--                <ul>-->
+<!--                    <li>1</li>-->
+<!--                    <li>2</li>-->
+<!--                    <li>3</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>
+{% endblock %}
